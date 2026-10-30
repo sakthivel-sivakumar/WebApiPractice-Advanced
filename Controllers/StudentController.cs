@@ -131,4 +131,16 @@ public class StudentController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpGet("search")]
+    public async Task<ActionResult<List<StudentDto>>> SearchStudents(
+    [FromQuery] string key)
+    {
+        if (string.IsNullOrWhiteSpace(key))
+            return BadRequest("Search term is required.");
+
+        var students = await _studentService.SearchStudentsByNameAsync(key);
+
+        return Ok(students);
+    }
 }
