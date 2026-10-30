@@ -22,4 +22,13 @@ public interface IStudentService
     Task<PagedResult<StudentDto>> GetPagedStudentsAsync(
     int pageNumber,
     int pageSize);
+
+    Task<PagedResult<StudentDto>> GetFilteredAndPagedStudentsAsync(
+    string? search,
+    int? departmentId,
+    string? sortBy,
+    string? sortOrder,
+    int pageNumber,
+    int pageSize);
+
 }
