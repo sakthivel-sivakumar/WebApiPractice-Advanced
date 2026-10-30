@@ -122,4 +122,17 @@ public class StudentService : IStudentService
         }).ToList();
     }
 
+    public async Task<List<StudentDto>> GetStudentsByDepartmentIdAsync(int departmentId)
+    {
+        var students = await _repository.GetByDepartmentIdAsync(departmentId);
+
+        return students.Select(s => new StudentDto
+        {
+            Id = s.Id,
+            Name = s.Name,
+            Email = s.Email,
+            Age = s.Age,
+            DepartmentName = s.Department?.DepartmentName
+        }).ToList();
+    }
 }
