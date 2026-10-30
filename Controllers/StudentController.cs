@@ -157,5 +157,25 @@ public class StudentController : ControllerBase
         return Ok(students);
     }
 
+    [HttpGet("paged")]
+    public async Task<ActionResult<PagedResult<StudentDto>>> GetPagedStudents(
+    [FromQuery] int pageNumber = 1,
+    [FromQuery] int pageSize = 10)
+    {
+        if (pageNumber < 1)
+            return BadRequest("Page number must be at least 1.");
+
+        if (pageSize < 1 || pageSize > 100)
+            return BadRequest("Page size must be between 1 and 100.");
+
+        var result = await _studentService.GetPagedStudentsAsync(
+            pageNumber,
+            pageSize);
+
+        return Ok(result);
+    }
+
+
+
 
 }
